@@ -6,7 +6,7 @@ namespace PokeApi.Models
     {
         [JsonPropertyName("slot")]
         public int Slot { get; set; }
-
+        
         [JsonPropertyName("is_hidden")]
         public bool IsHidden { get; set; }
 

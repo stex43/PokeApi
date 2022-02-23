@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Web;
 using PokeApi.Models;
 
-namespace PokeApi
+namespace PokeApi.Client
 {
-    public sealed class PokeClient
+    public sealed class PokeClient : IPokeClient
     {
         private readonly HttpClient httpClient;
 
@@ -27,9 +27,20 @@ namespace PokeApi
             return JsonSerializer.Deserialize<Pokemon>(content);
         }
 
+        public async Task<Pokemon> GetPokemonAsync(int id)
+        {
+            //throw new NotImplementedException();
+            // todo удалить перед выдачей задания
+            var response = await this.httpClient.GetAsync($"pokemon/{id}");
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Pokemon>(content);
+        }
+
         public async Task<PokemonList> GetPokemonsAsync(int? offset = null, int? limit = null)
         {
             //throw new NotImplementedException();
+            // todo удалить перед выдачей задания
             var query = HttpUtility.ParseQueryString(string.Empty);
 
             if (offset != null)
@@ -42,12 +53,7 @@ namespace PokeApi
                 query["limit"] = $"{limit}";
             }
 
-            var uriBuilder = new UriBuilder
-            {
-                Query = query.ToString()
-            };
-
-            var response = await this.httpClient.GetAsync($"pokemon?{uriBuilder}");
+            var response = await this.httpClient.GetAsync($"pokemon?{query}");
 
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<PokemonList>(content);

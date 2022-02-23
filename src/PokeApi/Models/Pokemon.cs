@@ -4,11 +4,13 @@ namespace PokeApi.Models
 {
     public sealed class Pokemon
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        // todo удалить перед выдачей задания
         [JsonPropertyName("height")]
         public int Height { get; set; }
 

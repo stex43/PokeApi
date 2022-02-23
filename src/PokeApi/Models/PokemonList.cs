@@ -5,6 +5,8 @@ namespace PokeApi.Models
 {
     public sealed class PokemonList
     {
+        //[JsonPropertyName("amount")]
+        // todo удалить перед выдачей задания
         [JsonPropertyName("count")]
         public int TotalCount { get; set; }
 
